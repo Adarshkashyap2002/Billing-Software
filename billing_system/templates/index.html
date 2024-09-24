@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Billing System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Software</title>
 </head>
 <body>
-    <h1>Welcome to the Billing System</h1>
-    <a href="/add_customer">Add Customer</a><br>
-    <a href="/add_product">Add Product</a><br>
+    <h1>Billing Software</h1>
+
+    <h2>Customers</h2>
+    <ul>
+        {% for customer in customers %}
+            <li>{{ customer.name }} - {{ customer.email }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="/add_customer">Add Customer</a>
+    <br>
     <a href="/create_invoice">Create Invoice</a>
+
+    <h2>Invoices</h2>
+    <ul>
+        {% for invoice in invoices %}
+            <li>Invoice ID: {{ invoice.id }} - Amount: ${{ invoice.amount }}
+                <a href="/invoice/{{ invoice.id }}">View</a>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
