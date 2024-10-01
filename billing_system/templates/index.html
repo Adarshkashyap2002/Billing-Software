@@ -3,29 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Billing Software</title>
+    <title>Billing System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Billing Software</h1>
-
+    <h1>Customer and Invoice Management</h1>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    
     <h2>Customers</h2>
     <ul>
         {% for customer in customers %}
-            <li>{{ customer.name }} - {{ customer.email }}</li>
+            <li>{{ customer.name }} ({{ customer.email }})</li>
         {% endfor %}
     </ul>
-
-    <a href="/add_customer">Add Customer</a>
-    <br>
-    <a href="/create_invoice">Create Invoice</a>
-
-    <h2>Invoices</h2>
-    <ul>
-        {% for invoice in invoices %}
-            <li>Invoice ID: {{ invoice.id }} - Amount: ${{ invoice.amount }}
-                <a href="/invoice/{{ invoice.id }}">View</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <a href="{{ url_for('add_customer') }}">Add Customer</a> | 
+    <a href="{{ url_for('create_invoice') }}">Create Invoice</a>
 </body>
 </html>
